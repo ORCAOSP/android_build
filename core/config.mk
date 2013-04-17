@@ -14,6 +14,11 @@ else
 SHELL := /bin/bash
 endif
 
+# Utility variables.
+empty :=
+space := $(empty) $(empty)
+comma := ,
+
 # Tell python not to spam the source tree with .pyc files.  This
 # only has an effect on python 2.6 and above.
 export PYTHONDONTWRITEBYTECODE := 1
@@ -219,6 +224,11 @@ ifeq ($(TARGET_CPU_ABI),)
   $(error No TARGET_CPU_ABI defined by board config: $(board_config_mk))
 endif
 TARGET_CPU_ABI2 := $(strip $(TARGET_CPU_ABI2))
+
+# default target GCC version
+ifeq ($(TARGET_GCC_VERSION),)
+  TARGET_GCC_VERSION := 4.7
+endif
 
 # $(1): os/arch
 define select-android-config-h
