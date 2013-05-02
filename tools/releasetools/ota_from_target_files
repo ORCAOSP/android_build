@@ -413,7 +413,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.Print("======================JDQ39====================");
   script.Print("|            THE ORCA PROJECT PRESENTS        |");
   script.Print("|                 by DrewGaren                |");
-  script.Print("|               ORCA BIGFOOT 1.1.8            |");
+  script.Print("|                ORCA BIGFOOT 2               |");
   script.Print("==================ORCA-NIGHTLY=================");
   script.Print("                                         ");
   script.Print("     fast like shamu, strong like sasquatch....");
