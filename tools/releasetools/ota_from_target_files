@@ -52,6 +52,10 @@ Usage:  ota_from_target_files [flags] input_target_files output_ota_package
   -a  (--aslr_mode)  <on|off>
       Specify whether to turn on ASLR for the package (on by default).
 
+  --backup <boolean>
+      Enable or disable the execution of backuptool.sh.
+      Disabled by default.
+
   --override_device <device>
       Override device-specific asserts. Can be a comma-separated list.
 
@@ -96,6 +100,7 @@ OPTIONS.aslr_mode = True
 OPTIONS.worker_threads = 3
 OPTIONS.override_device = 'auto'
 OPTIONS.no_assert = False
+OPTIONS.backuptool = False
 
 def MostPopularKey(d, default):
   """Given a dict, return the key corresponding to the largest
@@ -402,22 +407,11 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   device_specific.FullOTA_InstallBegin()
 
-  script.ShowProgress(0.5, 0)
-  script.Print("      ____  _       ____            __   ");
-  script.Print("     / __ )(_)___ _/ __/___  ____  / /_  ");
-  script.Print("    / __  / / __ `/ /_/ __ \/ __ \/ __/  ");
-  script.Print("   / /_/ / / /_/ / __/ /_/ / /_/ / /_    ");
-  script.Print("  /_____/_/\__, /_/  \____/\____/\__/    ");
-  script.Print("          /____/                         ");
-  script.Print("                                         ");
-  script.Print("======================JDQ39====================");
-  script.Print("|            THE ORCA PROJECT PRESENTS        |");
-  script.Print("|                 by DrewGaren                |");
-  script.Print("|               ORCA BIGFOOT 2.0.1            |");
-  script.Print("====================MILESTONE-1================");
-  script.Print("                                         ");
-  script.Print("     fast like shamu, strong like sasquatch....");
-  script.Print("                                         ");
+  if OPTIONS.backuptool:
+    script.Mount("/system")
+    script.RunBackup("backup")
+    script.Unmount("/system")
+
 
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
@@ -442,11 +436,37 @@ def WriteFullOTAPackage(input_zip, output_zip):
   common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
   script.ShowProgress(0.2, 0)
 
-  script.ShowProgress(0.2, 10)
-  script.Print("SHAMU KILLAZ, SASQUATCH POACHERZ!")
-  script.WriteRawImage("/boot", "boot.img")
+  script.Print("")
+  script.Print("")
+  script.Print("===========================================");
+  script.Print("|      RUNNING BACKUP TOOL                |");
+  script.Print("|                                         |");
+  script.Print("|           HANG IN THERE...              |");
+  script.Print("===========================================");
+  if OPTIONS.backuptool:
+    script.ShowProgress(0.2, 10)
+    script.RunBackup("restore")
 
-  script.Print("FAST LIKE ORCA, STRONG LIKE BIGFOOT. ENJOY!")
+  script.ShowProgress(0.2, 10)
+  script.Print("      ____  _       ____            __   ");
+  script.Print("     / __ )(_)___ _/ __/___  ____  / /_  ");
+  script.Print("    / __  / / __ `/ /_/ __ \/ __ \/ __/  ");
+  script.Print("   / /_/ / / /_/ / __/ /_/ / /_/ / /_    ");
+  script.Print("  /_____/_/\__, /_/  \____/\____/\__/    ");
+  script.Print("          /____/                         ");
+  script.Print("                                         ");
+  script.Print("======================JDQ39====================");
+  script.Print("|                                             |");
+  script.Print("|            THE ORCA PROJECT PRESENTS        |");
+  script.Print("|                                             |");  
+  script.Print("|                 by DrewGaren                |");
+  script.Print("|                                             |");
+  script.Print("|                ORCA BIGFOOT 2+              |");
+  script.Print("|                                             |");
+  script.Print("=====================nightly===================");
+  script.Print("                                         ");
+  script.Print("     fast like shamu, strong like sasquatch....");
+  script.Print("                                         ");
   script.ShowProgress(0.1, 0)
   device_specific.FullOTA_InstallEnd()
 
@@ -714,7 +734,7 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
     script.Print("Unpacking new files...")
     script.UnpackPackageDir("system", "/system")
 
-  script.Print(" Symlinks...")
+  script.Print("Symlinks and permissions...")
 
   # Create all the symlinks that don't already exist, or point to
   # somewhere different than what we want.  Delete each symlink before
@@ -781,6 +801,8 @@ def main(argv):
       OPTIONS.override_device = a
     elif o in ("--worker_threads"):
       OPTIONS.worker_threads = int(a)
+    elif o in ("--backup"):
+      OPTIONS.backuptool = bool(a.lower() == 'true')
     else:
       return False
     return True
@@ -796,6 +818,7 @@ def main(argv):
                                               "extra_script=",
                                               "worker_threads=",
                                               "aslr_mode=",
+                                              "backup=",
 					      "override_device=",
                                               ],
                              extra_option_handler=option_handler)
