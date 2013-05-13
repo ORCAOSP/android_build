@@ -410,11 +410,15 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.Print("  /_____/_/\__, /_/  \____/\____/\__/    ");
   script.Print("          /____/                         ");
   script.Print("                                         ");
-  script.Print("======================JDQ39====================");
+  script.Print("|=====================JDQ39===================|");
+  script.Print("|                                             |");
   script.Print("|            THE ORCA PROJECT PRESENTS        |");
+  script.Print("|                                             |");
   script.Print("|                 by DrewGaren                |");
-  script.Print("|               ORCA BIGFOOT 2.0.1            |");
-  script.Print("====================MILESTONE-1================");
+  script.Print("|                                             |");
+  script.Print("|                 ORCA BIGFOOT 2+             |");
+  script.Print("|                                             |");
+  script.Print("|====================nightly==================|");
   script.Print("                                         ");
   script.Print("     fast like shamu, strong like sasquatch....");
   script.Print("                                         ");
