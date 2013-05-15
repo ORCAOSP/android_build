@@ -456,26 +456,15 @@ def WriteFullOTAPackage(input_zip, output_zip):
   common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
   script.ShowProgress(0.2, 0)
 
-  script.Print("")
-  script.Print("")
-  script.Print("|=============================================|");
-  script.Print("|            RUNNING BACKUP TOOL              |");
-  script.Print("|                                             |");
-  script.Print("|               HANG IN THERE...              |");
-  script.Print("|=============================================|");
   if OPTIONS.backuptool:
     script.ShowProgress(0.2, 10)
     script.RunBackup("restore")
 
   script.ShowProgress(0.2, 10)
-  script.Print("|==============================================|");
-  script.Print("|      SHAMU KILLAZ, SASQUATCH POACHERZ!       |");
-  script.Print("|                                              |");
-  script.Print("| FAST LIKE ORCA, STRONG LIKE BIGFOOT. ENJOY!  |");
-  script.Print("|                                              |");
-  script.Print("|         orca bigfoot 2+ installed, go play   |");
-  script.Print("|==============================================|");
-  script.Print("                                              ");
+  script.Print("SHAMU KILLAZ...")
+  script.WriteRawImage("/boot", "boot.img")
+
+  script.Print("FAST LIKE SHAMU, STRONG LIKE SASQUATCH...")
   script.ShowProgress(0.1, 0)
   device_specific.FullOTA_InstallEnd()
 
