@@ -447,7 +447,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.Print("|                                             |");
   script.Print("|                ORCA BIGFOOT 2+              |");
   script.Print("|                                             |");
-  script.Print("|=====================nightly=================|");
+  script.Print("|==================milestone=2================|");
   script.Print("                                         ");
   script.Print("     fast like shamu, strong like sasquatch....");
   script.Print("                                         ");
