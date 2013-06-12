@@ -30,6 +30,7 @@ PRODUCT_PACKAGES := \
     Email2 \
     Exchange \
     Exchange2 \
+    Launcher2 \
     FusedLocation \
     Gallery2 \
     InputDevices \
