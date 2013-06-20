@@ -432,26 +432,29 @@ def WriteFullOTAPackage(input_zip, output_zip):
     script.Unmount("/system")
 
   script.ShowProgress(0.5, 0)
-  script.Print("      ____  _       ____            __   ");
-  script.Print("     / __ )(_)___ _/ __/___  ____  / /_  ");
-  script.Print("    / __  / / __ `/ /_/ __ \/ __ \/ __/  ");
-  script.Print("   / /_/ / / /_/ / __/ /_/ / /_/ / /_    ");
-  script.Print("  /_____/_/\__, /_/  \____/\____/\__/    ");
-  script.Print("          /____/                         ");
+  script.Print("      ________                           ");
+  script.Print("      \_____  \ _______   ____  _____    ");
+  script.Print("       /   |   \\_  __ \_/ ___\ \__  \   ");
+  script.Print("      /    |    \|  | \/\  \___  / __ \_ ");
+  script.Print("      \_______  /|__|    \___  >(____  / ");
+  script.Print("              \/             \/      \/  ");
   script.Print("                                         ");
   script.Print("|=====================JDQ39===================|");
   script.Print("|                                             |");
   script.Print("|            THE ORCA PROJECT PRESENTS        |");
   script.Print("|                                             |");  
-  script.Print("|                 by DrewGaren                |");
+  script.Print("|             ORCA CODENAME WAVE 2.2          |");
   script.Print("|                                             |");
-  script.Print("|                ORCA BIGFOOT 2+              |");
+  script.Print("|                 orcaproject.co              |");
   script.Print("|                                             |");
   script.Print("|=====================nightly=================|");
   script.Print("                                         ");
-  script.Print("     fast like shamu, strong like sasquatch....");
-  script.Print("                                         ");
-
+  script.Print("           Shamu's taste like chicken...");
+  script.Print("                                               ");
+  script.Print(" Developers Message: support our rom & further");
+  script.Print(" development by donating at our website.       ")
+  script.Print("                                               ");
+  script.Print("       Thanks and Enjoy Riding The Wave!");
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
 
@@ -489,7 +492,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   script.Print("SHAMU KILLAZ...")
   script.WriteRawImage("/boot", "boot.img")
-  script.Print("FAST LIKE SHAMU, STRONG LIKE SASQUATCH...")
+  script.Print("POWER! ENJOY SOME SHAMUS!")
   script.ShowProgress(0.1, 0)
   device_specific.FullOTA_InstallEnd()
 
