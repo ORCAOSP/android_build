@@ -60,8 +60,8 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^bigfoot") ; then
-       BF_PRODUCT=$(echo -n $1 | sed -e 's/^bigfoot_//g')
+    if (echo -n $1 | grep -q -e "^orca") ; then
+       BF_PRODUCT=$(echo -n $1 | sed -e 's/^orca_//g')
     else
        BF_PRODUCT=
     fi
@@ -447,7 +447,7 @@ function print_lunch_menu()
     echo
     echo "You're building on" $uname
     echo
-    if [ "z${BIGFOOT_DEVICES_ONLY}" != "z" ]; then
+    if [ "z${ORCA_DEVICES_ONLY}" != "z" ]; then
        echo "Breakfast menu... pick a combo:"
     else
        echo "Lunch menu... pick a combo:"
@@ -461,7 +461,7 @@ function print_lunch_menu()
         i=$(($i+1))
     done
 
-    if [ "z${BIGFOOT_DEVICES_ONLY}" != "z" ]; then
+    if [ "z${ORCA_DEVICES_ONLY}" != "z" ]; then
        echo "... and don't forget the bacon!"
     fi
 
@@ -483,10 +483,10 @@ function brunch()
 function breakfast()
 {
     target=$1
-    BIGFOOT_DEVICES_ONLY="true"
+    ORCA_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    for f in `/bin/ls vendor/bigfoot/vendorsetup.sh 2> /dev/null`
+    for f in `/bin/ls vendor/orca/vendorsetup.sh 2> /dev/null`
         do
             echo "including $f"
             . $f
@@ -502,7 +502,7 @@ function breakfast()
             # A buildtype was specified, assume a full device name
             lunch $target
         else
-            lunch bigfoot_$target-userdebug
+            lunch orca_$target-userdebug
         fi
     fi
     return $?
@@ -1243,7 +1243,7 @@ function mka() {
 function mbot() {
     unset LUNCH_MENU_CHOICES
     croot
-    ./vendor/bigfoot/bot/deploy.sh
+    ./vendor/orca/bot/deploy.sh
 }
 
 function mkapush() {
