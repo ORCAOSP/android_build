@@ -33,6 +33,7 @@ PRODUCT_PACKAGES := \
     FusedLocation \
     Gallery2 \
     InputDevices \
+    LatinIme \
     MusicFX \
     Provision \
     Phone \
