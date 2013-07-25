@@ -439,11 +439,11 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.Print("      \_______  /|__|    \___  >(____  / ");
   script.Print("              \/             \/      \/  ");
   script.Print("                                         ");
-  script.Print("|=====================JDQ39===================|");
+  script.Print("|==================ANDROID-4.3================|");
   script.Print("|                                             |");
   script.Print("|            THE ORCA PROJECT PRESENTS        |");
   script.Print("|                                             |");  
-  script.Print("|             ORCA CODENAME WAVE 2.2          |");
+  script.Print("|                     ORCA 3                  |");
   script.Print("|                                             |");
   script.Print("|                 orcaproject.co              |");
   script.Print("|                                             |");

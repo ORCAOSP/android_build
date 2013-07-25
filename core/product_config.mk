@@ -82,7 +82,7 @@ endef
 # These are the valid values of TARGET_BUILD_VARIANT.  Also, if anything else is passed
 # as the variant in the PRODUCT-$TARGET_BUILD_PRODUCT-$TARGET_BUILD_VARIANT form,
 # it will be treated as a goal, and the eng variant will be used.
-INTERNAL_VALID_VARIANTS := user userdebug eng tests
+INTERNAL_VALID_VARIANTS := user userdebug eng
 
 # ---------------------------------------------------------------
 # Provide "PRODUCT-<prodname>-<goal>" targets, which lets you build
@@ -109,6 +109,10 @@ ifdef product_goals
   # The variant they want
   TARGET_BUILD_VARIANT := $(word 2,$(product_goals))
 
+  ifeq ($(TARGET_BUILD_VARIANT),tests)
+    $(error "tests" has been deprecated as a build variant. Use it as a build goal instead.)
+  endif
+
   # The build server wants to do make PRODUCT-dream-installclean
   # which really means TARGET_PRODUCT=dream make installclean.
   ifneq ($(filter-out $(INTERNAL_VALID_VARIANTS),$(TARGET_BUILD_VARIANT)),)
@@ -117,11 +121,6 @@ ifdef product_goals
     default_goal_substitution :=
   else
     default_goal_substitution := $(DEFAULT_GOAL)
-  endif
-
-  # For tests build, only build tests-build-target
-  ifeq (tests,$(TARGET_BUILD_VARIANT))
-    default_goal_substitution := tests-build-target
   endif
 
   # Replace the PRODUCT-* goal with the build goal that it refers to.
@@ -185,16 +184,16 @@ ifneq ($(strip $(TARGET_BUILD_APPS)),)
 all_product_configs := $(call get-product-makefiles,\
     $(SRC_TARGET_DIR)/product/AndroidProducts.mk)
 else
-  ifneq ($(BF_PRODUCT),)
-    all_product_configs := $(shell ls vendor/orca/products/${BF_PRODUCT}.mk)
+  ifneq ($(CM_BUILD),)
+    all_product_configs := $(shell ls device/*/$(CM_BUILD)/cm.mk)
   else
     # Read in all of the product definitions specified by the AndroidProducts.mk
     # files in the tree.
     all_product_configs := $(get-all-product-makefiles)
-  endif # BF_PRODUCT
+  endif # CM_BUILD
 endif
 
-ifeq ($(BF_PRODUCT),)
+ifeq ($(CM_BUILD),)
 # Find the product config makefile for the current product.
 # all_product_configs consists items like:
 # <product_name>:<path_to_the_product_makefile>
